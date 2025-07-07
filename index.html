@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmic Health Tracker - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: radial-gradient(ellipse at bottom, #0c1445 0%, #020308 100%);
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Enhanced Star Field */
+        .stars {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        .star.bright {
+            background: #64b5f6;
+            box-shadow: 0 0 6px #64b5f6;
+            animation: brightTwinkle 2s infinite;
+        }
+
+        .star.distant {
+            background: #fff59d;
+            animation: distantTwinkle 4s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        @keyframes brightTwinkle {
+            0%, 100% { opacity: 0.8; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        @keyframes distantTwinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(1.1); }
+        }
+
+        /* Enhanced Nebula System */
+        .nebula {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            animation: nebulaFloat 15s ease-in-out infinite;
+        }
+
+        .nebula-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(147, 51, 234, 0.4) 0%, rgba(147, 51, 234, 0.1) 40%, transparent 70%);
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .nebula-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(59, 130, 246, 0.1) 40%, transparent 70%);
+            top: 60%;
+            right: 15%;
+            animation-delay: -5s;
+        }
+
+        .nebula-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, rgba(168, 85, 247, 0.05) 40%, transparent 70%);
+            bottom: 20%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        @keyframes nebulaFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.8; }
+            33% { transform: translateY(-30px) rotate(120deg); opacity: 0.6; }
+            66% { transform: translateY(20px) rotate(240deg); opacity: 0.9; }
+        }
+
+        /* Enhanced Spacecraft Animation */
+        .spacecraft {
+            position: absolute;
+            width: 80px;
+            height: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50px 10px 50px 10px;
+            animation: cosmicFly 20s linear infinite;
+            box-shadow: 0 0 30px rgba(102, 126, 234, 0.8);
+            z-index: 2;
+        }
+
+        .spacecraft::before {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 6px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.4));
+            border-radius: 3px;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+        }
+
+        .spacecraft::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, #ff6b6b, #ff8e53, transparent);
+            right: -50px;
+            top: 50%;
+            transform: translateY(-50%);
+            animation: thrusterFlame 0.2s ease-in-out infinite alternate;
+        }
+
+        @keyframes thrusterFlame {
+            0% { 
+                width: 50px; 
+                opacity: 0.8; 
+                box-shadow: 0 0 10px #ff6b6b;
+            }
+            100% { 
+                width: 70px; 
+                opacity: 0.4; 
+                box-shadow: 0 0 20px #ff8e53;
+            }
+        }
+
+        @keyframes cosmicFly {
+            0% { 
+                transform: translateX(-100px) translateY(60vh) rotate(0deg); 
+                opacity: 0.8;
+            }
+            15% { 
+                transform: translateX(20vw) translateY(20vh) rotate(15deg); 
+                opacity: 1;
+            }
+            35% { 
+                transform: translateX(40vw) translateY(70vh) rotate(-10deg); 
+                opacity: 0.9;
+            }
+            55% { 
+                transform: translateX(60vw) translateY(30vh) rotate(20deg); 
+                opacity: 1;
+            }
+            75% { 
+                transform: translateX(80vw) translateY(60vh) rotate(-5deg); 
+                opacity: 0.8;
+            }
+            100% { 
+                transform: translateX(110vw) translateY(40vh) rotate(0deg); 
+                opacity: 0.6;
+            }
+        }
+
+        /* Floating Space Debris */
+        .space-debris {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: debris 25s linear infinite;
+        }
+
+        @keyframes debris {
+            0% { 
+                transform: translateX(-50px) translateY(100vh) rotate(0deg); 
+                opacity: 0;
+            }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { 
+                transform: translateX(100vw) translateY(-50px) rotate(360deg); 
+                opacity: 0;
+            }
+        }
+
+        /* Spectacular Entry Animation */
+        .page-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, #0c1445 0%, #020308 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            animation: pageLoaderFade 4s ease-in-out 3s forwards;
+        }
+
+        @keyframes pageLoaderFade {
+            0% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        .cosmic-loader {
+            width: 150px;
+            height: 150px;
+            position: relative;
+            animation: cosmicLoaderSpin 3s ease-in-out infinite;
+        }
+
+        @keyframes cosmicLoaderSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.1); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .cosmic-loader::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 4px solid transparent;
+            border-top: 4px solid #667eea;
+            border-right: 4px solid #764ba2;
+            border-radius: 50%;
+            animation: loaderRing 2s linear infinite;
+        }
+
+        .cosmic-loader::after {
+            content: '🚀';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50px;
+            animation: rocketPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes loaderRing {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes rocketPulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                filter: brightness(1);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2); 
+                filter: brightness(1.3);
+            }
+        }
+
+        .welcome-text {
+            margin-top: 30px;
+            color: white;
+            font-size: 28px;
+            font-weight: 300;
+            text-align: center;
+            opacity: 0;
+            animation: welcomeTextSlide 2s ease-out 1s forwards;
+        }
+
+        @keyframes welcomeTextSlide {
+            from { 
+                opacity: 0; 
+                transform: translateY(50px);
+                filter: blur(10px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        .loading-progress {
+            margin-top: 20px;
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            opacity: 0;
+            animation: progressAppear 1s ease-out 2s forwards;
+        }
+
+        @keyframes progressAppear {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .loading-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            width: 0%;
+            border-radius: 2px;
+            animation: progressFill 3s ease-in-out 2s forwards;
+        }
+
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        /* Enhanced Login Container */
+        .login-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(25px);
+            border-radius: 25px;
+            padding: 50px;
+            width: 450px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            animation: loginContainerEntrance 3s ease-out 6s forwards;
+            opacity: 0;
+            z-index: 10;
+        }
+
+        @keyframes loginContainerEntrance {
+            0% { 
+                opacity: 0; 
+                transform: translate(-50%, -50%) scale(0.1) rotateY(180deg);
+                filter: blur(30px);
+            }
+            20% { 
+                opacity: 0.3; 
+                transform: translate(-50%, -50%) scale(0.5) rotateY(90deg);
+                filter: blur(20px);
+            }
+            40% { 
+                opacity: 0.6; 
+                transform: translate(-50%, -50%) scale(0.8) rotateY(45deg);
+                filter: blur(10px);
+            }
+            70% { 
+                opacity: 0.9; 
+                transform: translate(-50%, -50%) scale(1.05) rotateY(-5deg);
+                filter: blur(3px);
+            }
+            90% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(0.98) rotateY(2deg);
+                filter: blur(1px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translate(-50%, -50%) scale(1) rotateY(0deg);
+                filter: blur(0px);
+            }
+        }
+
+        /* Enhanced Logo */
+        .logo {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: logoMaterialize 1s ease-out 7s forwards;
+            opacity: 0;
+        }
+
+        @keyframes logoMaterialize {
+            0% { 
+                opacity: 0; 
+                transform: translateY(-50px) scale(0.5);
+                filter: blur(20px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        .logo h1 {
+            color: #ffffff;
+            font-size: 3em;
+            font-weight: 700;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            margin-bottom: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { 
+                text-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+                filter: brightness(1);
+            }
+            50% { 
+                text-shadow: 0 0 50px rgba(255, 255, 255, 0.8);
+                filter: brightness(1.2);
+            }
+        }
+
+        .logo p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2em;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Enhanced Form Elements */
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+            animation: formElementSlide 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .form-group:nth-child(1) { animation-delay: 7.5s; }
+        .form-group:nth-child(2) { animation-delay: 7.8s; }
+
+        @keyframes formElementSlide {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-80px) rotateY(-45deg);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateX(0) rotateY(0deg);
+                filter: blur(0px);
+            }
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 18px 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            box-shadow: 
+                0 0 25px rgba(102, 126, 234, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .form-group .input-icon {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus + .input-icon {
+            color: #667eea;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        /* Enhanced Login Button */
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            font-size: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            animation: buttonMaterialize 0.8s ease-out 8.1s forwards;
+            opacity: 0;
+            transform: translateY(50px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        @keyframes buttonMaterialize {
+            0% { 
+                opacity: 0; 
+                transform: translateY(50px) scale(0.8);
+                filter: blur(10px);
+            }
+            100% { 
+                opacity: 1; 
+                transform: translateY(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        .login-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .login-btn:hover::before {
+            left: 100%;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .login-btn:active {
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Error Message */
+        .error-message {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 15px;
+            opacity: 0;
+            transition: all 0.4s ease;
+            padding: 10px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 107, 107, 0.3);
+        }
+
+        .error-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Security Indicator */
+        .security-indicator {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 14px;
+            z-index: 11;
+            animation: securityIndicatorSlide 1s ease-out 8.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes securityIndicatorSlide {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .security-icon {
+            width: 24px;
+            height: 24px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            animation: securityPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes securityPulse {
+            0%, 100% { 
+                box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 0 10px rgba(76, 175, 80, 0);
+            }
+        }
+
+        /* Success Animation */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, rgba(76, 175, 80, 0.2) 0%, rgba(9, 10, 15, 0.95) 100%);
+            z-index: 10000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: successOverlayFade 1s ease-out forwards;
+        }
+
+        @keyframes successOverlayFade {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .success-portal {
+            width: 400px;
+            height: 400px;
+            position: relative;
+            animation: portalExpand 3s ease-out forwards;
+        }
+
+        @keyframes portalExpand {
+            0% { 
+                transform: scale(0) rotate(0deg); 
+                opacity: 0; 
+                filter: blur(20px);
+            }
+            30% { 
+                transform: scale(0.5) rotate(180deg); 
+                opacity: 0.6; 
+                filter: blur(10px);
+            }
+            70% { 
+                transform: scale(1.1) rotate(270deg); 
+                opacity: 0.9; 
+                filter: blur(3px);
+            }
+            100% { 
+                transform: scale(1) rotate(360deg); 
+                opacity: 1; 
+                filter: blur(0px);
+            }
+        }
+
+        .portal-ring {
+            position: absolute;
+            border: 4px solid transparent;
+            border-radius: 50%;
+            animation: portalRingRotate 3s linear infinite;
+        }
+
+        .portal-ring:nth-child(1) {
+            width: 100%;
+            height: 100%;
+            border-top: 4px solid #4CAF50;
+            border-right: 4px solid #66BB6A;
+            animation-duration: 2s;
+        }
+
+        .portal-ring:nth-child(2) {
+            width: 80%;
+            height: 80%;
+            top: 10%;
+            left: 10%;
+            border-top: 4px solid #81C784;
+            border-left: 4px solid #A5D6A7;
+            animation-duration: 1.5s;
+            animation-direction: reverse;
+        }
+
+        .portal-ring:nth-child(3) {
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            border-top: 4px solid #C8E6C9;
+            border-bottom: 4px solid #E8F5E8;
+            animation-duration: 1s;
+        }
+
+        @keyframes portalRingRotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .portal-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, #4CAF50 0%, #66BB6A 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            animation: portalCenterPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes portalCenterPulse {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1); 
+                box-shadow: 0 0 30px rgba(76, 175, 80, 0.6);
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2); 
+                box-shadow: 0 0 60px rgba(76, 175, 80, 0.9);
+            }
+        }
+
+        .success-message {
+            position: absolute;
+            bottom: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            text-align: center;
+            opacity: 0;
+            animation: successMessageSlide 1.5s ease-out 1.5s forwards;
+        }
+
+        @keyframes successMessageSlide {
+            from { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(50px);
+                filter: blur(10px);
+            }
+            to { 
+                opacity: 1; 
+                transform: translateX(-50%) translateY(0);
+                filter: blur(0px);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 480px) {
+            .login-container {
+                width: 90%;
+                padding: 40px 30px;
+            }
+            
+            .logo h1 {
+                font-size: 2.2em;
+            }
+            
+            .welcome-text {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Page Entry Loader -->
+    <div class="page-loader">
+        <div class="cosmic-loader"></div>
+        <div class="welcome-text">Initializing siddu's Health Portal...</div>
+        <div class="loading-progress">
+            <div class="loading-bar"></div>
+        </div>
+    </div>
+
+    <!-- Success Animation Overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-portal">
+            <div class="portal-ring"></div>
+            <div class="portal-ring"></div>
+            <div class="portal-ring"></div>
+            <div class="portal-center">✓</div>
+        </div>
+        <div class="success-message">
+            <div>🚀 Access Granted!</div>
+            <div style="font-size: 18px; margin-top: 15px; opacity: 0.9;">Entering Health Dashboard...</div>
+        </div>
+    </div>
+
+    <!-- Enhanced Animated Background -->
+    <div class="stars"></div>
+    <div class="spacecraft"></div>
+    <div class="nebula nebula-1"></div>
+    <div class="nebula nebula-2"></div>
+    <div class="nebula nebula-3"></div>
+
+    <!-- Security Indicator -->
+    <div class="security-indicator">
+        <div class="security-icon">🔒</div>
+        <span>Secure Connection</span>
+    </div>
+
+    <!-- Enhanced Login Container -->
+    <div class="login-container">
+        <div class="logo">
+            <h1>Siddu's diet tracking system</h1>
+            <p>Advanced Nutrient Tracking System</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="text" id="username" placeholder="Enter Username" required>
+                <div class="input-icon">👤</div>
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Enter Password" required>
+                <div class="input-icon">🔐</div>
+            </div>
+
+            <button type="submit" class="login-btn">
+                <span>🚀 LAUNCH DASHBOARD</span>
+            </button>
+
+            <div class="error-message" id="errorMessage">
+                Invalid credentials. Access denied.
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Enhanced security configuration
+        const VALID_CREDENTIALS = {
+        username: 'siddu',
+        password: 'luffy2004.'
+    };
+
+    let loginAttempts = 0;
+    const MAX_ATTEMPTS = 5;
+    let isLocked = false;
+
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+
+        if (username === VALID_CREDENTIALS.username && password === VALID_CREDENTIALS.password) {
+            window.location.href = 'main.html'; // ✅ REDIRECT HERE
+        }
+
+        loginAttempts++;
+        if (loginAttempts >= MAX_ATTEMPTS) {
+            isLocked = true;
+            document.getElementById('errorMessage').innerText = 'Maximum login attempts exceeded. Please try again later.';
+        } else {
+            document.getElementById('errorMessage').innerText = 'Invalid credentials. Access denied.';
+        }
+    });
+
+        // Enhanced background generation
+        function createEnhancedStars() {
+            const starsContainer = document.querySelector('.stars');
+            
+            // Create different types of stars
+            for (let i = 0; i < 150; i++) {
+                const star = document.createElement('div');
+                const starType = Math.random();
+                
+                if (starType > 0.8) {
+                    star.className = 'star bright';
+                } else if (starType > 0.6) {
+                    star.className = 'star distant';
+                } else {
+                    star.className = 'star';
+                }
+                
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.width = Math.random() * 4 + 1 + 'px';
+                star.style.height = star.style.width;
+                star.style.animationDelay = Math.random() * 3 + 's';
+                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                
+                starsContainer.appendChild(star);
+            }
+        }
+
+        function createSpaceDebris() {
+            setInterval(() => {
+                const debris = document.createElement('div');
+                debris.className = 'space-debris';
+                debris.style.left = Math.random() * 100 + '%';
+                debris.style.animationDuration = (Math.random() * 10 + 20) + 's';
+                debris.style.animationDelay = Math.random() * 5

@@ -823,89 +823,85 @@
             <p>Advanced Nutrient Tracking System</p>
         </div>
 
-        <form id="loginForm">
+<form id="loginForm">
             <div class="form-group">
-                <input type="text" id="username" placeholder="Enter Username" required>
-                <div class="input-icon">👤</div>
-            </div>
+            <input type="text" placeholder="Username" 
+        id="username" required />
+            <span class="input-icon">👤</span>
+        </div>
 
-            <div class="form-group">
-                <input type="password" id="password" placeholder="Enter Password" required>
-                <div class="input-icon">🔐</div>
-            </div>
+        <div class="form-group">
+            <input type="password" placeholder="Password" 
+        id="password" required />
+            <span class="input-icon">🔒</span>
+        </div>
 
-            <button type="submit" class="login-btn">
-                <span>🚀 LAUNCH DASHBOARD</span>
-            </button>
+        <div class="error-message" id="error-msg"></div>
 
-            <div class="error-message" id="errorMessage">
-                Invalid credentials. Access denied.
-            </div>
-        </form>
-    </div>
+        <button type="submit" class="login-btn">Login</button>
+</form>
 
     <script>
-        // Enhanced security configuration
-        const VALID_CREDENTIALS = {
-        username: 'siddu',
-        password: 'luffy2004.'
-    };
+  // ✅ LOGIN SCRIPT
+document.addEventListener("DOMContentLoaded", () => {
+    const loginForm = document.getElementById("loginForm");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const errorMsg = document.getElementById("error-msg");
 
-    let loginAttempts = 0;
-    const MAX_ATTEMPTS = 5;
-    let isLocked = false;
+    loginForm.addEventListener("submit", function (e) {
+    e.preventDefault();
 
-    document.getElementById('loginForm').addEventListener('submit', function(event) {
-        event.preventDefault();
+    const username = usernameInput.value.trim();
+    const password = passwordInput.value.trim();
 
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value;
-
-        if (username === VALID_CREDENTIALS.username && password === VALID_CREDENTIALS.password) {
-            window.location.href = "/main.html"; // ✅ REDIRECT HERE
-        }
-
-        loginAttempts++;
-        if (loginAttempts >= MAX_ATTEMPTS) {
-            isLocked = true;
-            document.getElementById('errorMessage').innerText = 'Maximum login attempts exceeded. Please try again later.';
-        } else {
-            document.getElementById('errorMessage').innerText = 'Invalid credentials. Access denied.';
-        }
+    if (username === "siddu" && password === "luffy2004.") {
+        window.location.href = "/main.html";
+    } else {
+        errorMsg.classList.add("show");
+        errorMsg.textContent = "Invalid credentials. Please try again.";
+    }
     });
 
-        // Enhanced background generation
-        function createEnhancedStars() {
-            const starsContainer = document.querySelector('.stars');
-            
-            // Create different types of stars
-            for (let i = 0; i < 150; i++) {
-                const star = document.createElement('div');
-                const starType = Math.random();
-                
-                if (starType > 0.8) {
-                    star.className = 'star bright';
-                } else if (starType > 0.6) {
-                    star.className = 'star distant';
-                } else {
-                    star.className = 'star';
-                }
-                
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 4 + 1 + 'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = Math.random() * 3 + 's';
-                star.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                
-                starsContainer.appendChild(star);
-            }
-        }
+    // ✅ BACKGROUND ANIMATIONS
+    createEnhancedStars();
+    createSpaceDebris();
+});
 
-        function createSpaceDebris() {
-            setInterval(() => {
-                const debris = document.createElement('div');
-                debris.className = 'space-debris';
-                debris.style.left = Math.random() * 100 + '%';
-                debris.style.animationDuration = (Math.random() * 10 + 20) + 's';
-                debris.style.animationDelay = Math.random() * 5
+  // ⭐ Star Field Generation
+function createEnhancedStars() {
+    const starsContainer = document.querySelector('.stars');
+    for (let i = 0; i < 150; i++) {
+    const star = document.createElement('div');
+    const starType = Math.random();
+    star.className = starType > 0.8 ? 'star bright' : starType > 0.6 ? 'star distant' : 'star';
+
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.width = Math.random() * 4 + 1 + 'px';
+    star.style.height = star.style.width;
+    star.style.animationDelay = Math.random() * 3 + 's';
+    star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+
+    starsContainer.appendChild(star);
+    }
+}
+
+  // ☄️ Space Debris Generation
+function createSpaceDebris() {
+    setInterval(() => {
+    const debris = document.createElement('div');
+    debris.className = 'space-debris';
+    debris.style.left = Math.random() * 100 + '%';
+    debris.style.animationDuration = (Math.random() * 10 + 20) + 's';
+    debris.style.animationDelay = Math.random() * 5 + 's';
+
+    document.body.appendChild(debris);
+
+      // Remove debris after animation ends
+    setTimeout(() => {
+        debris.remove();
+    }, 30000);
+    }, 1000);
+}
+</script>
